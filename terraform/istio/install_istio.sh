@@ -22,7 +22,7 @@ echo "### Begin install istio control plane"
 echo "### "
 
 # Set vars for DIRs
-ISTIO_VERSION=1.7.1
+ISTIO_VERSION=1.14.0
 
 # Set the working directory to our current directory (/sandbox/terraform/istio)
 export SCRIPTPATH=$(dirname $(realpath $0))
@@ -37,6 +37,9 @@ mv istio-$ISTIO_VERSION/bin/istioctl ${WORK_DIR}
 
 # Prepare for install
 kubectl create namespace istio-system
+
+# install demo profile
+istioctl install --set profile=demo -y
 
 cd ./istio-${ISTIO_VERSION}/
 kubectl create secret generic cacerts -n istio-system \
